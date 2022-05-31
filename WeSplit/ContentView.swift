@@ -4,13 +4,13 @@
 //
 //  Created by whybhav on 19/05/22.
 //
-
 import SwiftUI
 
 struct ContentView: View {
     @State private var checkAmount = 0.0
     @State private var numberOfPeople = 2
     @State private var tipPercentage = 20
+    @State private var useRedText = false
     
     @FocusState private var amountIsSelected: Bool
     
@@ -21,7 +21,6 @@ struct ContentView: View {
     var totalPerPerson: Double {
         let peopleCount = Double(numberOfPeople + 2) //because we loop from 2, and numberOfPeople = 2 actually means 4 people in the UI so we add 2 to it to make the value also equal to 4
         let tipSelection = Double(tipPercentage)
-        
         let tipValue = checkAmount / 100 * tipSelection
         let grandTotal = checkAmount + tipValue
         let amountPerPerson = grandTotal / peopleCount
@@ -61,6 +60,7 @@ struct ContentView: View {
                 
                 Section {
                     Text(totalAmount, format: currencyPreference)
+                        .foregroundColor(isTipZero() ? .red : .black)
                 } header: {
                     Text("Total Amount")
                 }
@@ -83,6 +83,14 @@ struct ContentView: View {
             }
         }
     }
+    
+    func isTipZero() -> Bool {
+        var viewColor = useRedText
+        if tipPercentage == 0 {
+            viewColor.toggle()
+        }
+        return viewColor
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -90,12 +98,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-//
-//value - lets us use float instead of entering a string and then doing the conversion.
-//format: .currency(code: - lets us know that the text field will accept a value that is currency
-//Locale is a huge struct that stores user info like their preferences (currency, metric, etc)
-//The toolbar() modifier lets us specify toolbar items for a view. These toolbar items might appear in various places on the screen – in the navigation bar at the top, in a special toolbar area at the bottom, and so on.
-//ToolbarItemGroup lets us place one or more buttons in a specific location, and this is where we get to specify we want a keyboard toolbar – a toolbar that is attached to the keyboard, so it will automatically appear and disappear with the keyboard.
-//The Button view we’re using here displays some tappable text, which in our case is “Done”. We also need to provide it with some code to run when the button is pressed, which in our case sets amountIsFocused to false so that the keyboard is dismissed.
-//Spacer is a flexible space by default – wherever you place a spacer it will automatically push other views to one side. That might mean pushing them up, down, left, or right depending on where it’s used, but by placing it first in our toolbar it will cause our button to be pushed to the right.

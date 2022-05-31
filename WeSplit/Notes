@@ -1,0 +1,11 @@
+opt + cmd + p - update preview
+If we add more than 10 times we should group it, otherwise would throw an error. This limit of 10 children applies everywhere in SwiftUI and not just in Form. We can use group to use more than 10 items.
+Group doesn't change anything but just is a workaround for the 10 limitation. If we want things to look in diff. groups, we should use 'Section'
+ NavigationView lets us limit our view to a safe area. i.e not overlap with the system UI like Clock.
+Make sure to wrap the navigation title to the Form and not the naviagtion View as that will apply the title to everywhere there is a navigation screen.
+"Views are a function of their state"
+@State allows us to modify properties inside a constant Struct and we add 'private' just to make sure its a local variable and can be used only in that specific scope.
+ shift + cmd + K - to use hardware keyboard and not the virutal one
+$name uses to bind the name to the Textfield, so the changes are saved in real-time i.e value is read and also returns the value as it changes.
+ForEach lets you loop an array or Range to display values.
+ \.self says to loop the array and the unique identifier being the array content (string) itself.
